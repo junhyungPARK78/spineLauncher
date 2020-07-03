@@ -1,0 +1,1 @@
+/Applications/Spine/Spine.app/Contents/MacOS/Spine -u
