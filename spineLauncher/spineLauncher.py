@@ -3,41 +3,10 @@ import os.path
 import sys
 import platform
 import tkinter as tk
+import resources.optionSetting
 
 # 현재 운영체제 알아내기
 thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
-
-# [함수] 세팅 파일용 GUI
-def OptionSetting():
-    
-    # [함수] 세팅 파일 만들기
-    def optionOkClick():
-        spinePathInput = optionInput.get()
-        if spinePathInput[-1] == "\\":
-            spinePathInput = spinePathInput[:-1]
-        
-        settingFile = open("./resources/settingForWindows.txt", 'w')
-        spinePathInput = f"\"{spinePathInput}\\Spine.exe\" -u"
-        settingFile.write(spinePathInput)
-
-        settingFile.close()
-
-        window.destroy()
-
-        return
-
-    window = tk.Tk()
-    window.title("Option")
-    optionComment1 = tk.Label(window, text = "spine의 설치 폴더를 입력해주세요. : ")
-    optionComment1.grid(row = 0, column = 0)
-        
-    optionInput = tk.Entry(window, justify = "right", width = 20)
-    optionInput.grid(row = 1, column = 0)
-
-    okButton = tk.Button(window, text = "    OK    ", command = optionOkClick)
-    okButton.grid(row = 2, column = 0)
-
-    window.mainloop()
 
 # 세팅 파일이 있는지 확인하기
 file = "./resources/settingForWindows.txt"
@@ -45,7 +14,7 @@ if os.path.exists(file):
     pass
 else:
     print("개인 설정을 시작합니다.")
-    OptionSetting()
+    resources.optionSetting.OptionSetting()
 
 
 
