@@ -1,7 +1,7 @@
-import os
-import os.path
-import sys
-import platform
+# import os
+# import os.path
+# import sys
+# import platform
 import tkinter as tk
 
 # [함수] 세팅 파일용 GUI
@@ -23,6 +23,7 @@ def OptionSetting():
 
     window = tk.Tk()
     window.title("Option")
+    window.geometry("420x300+200+100")
     optionComment1 = tk.Label(window, text = "spine의 설치 폴더를 입력해주세요. : ")
     optionComment1.grid(row = 0, column = 0)
         
