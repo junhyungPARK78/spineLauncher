@@ -2,52 +2,45 @@ import os
 import os.path
 import sys
 import platform
-import tkinter as tk
+import tkinter
+
+import resources.optionSetting
 
 # 현재 운영체제 알아내기
 thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
-
-# [함수] 세팅 파일용 GUI
-def OptionSetting():
-    
-    # [함수] 세팅 파일 만들기
-    def optionOkClick():
-        spinePathInput = optionInput.get()
-        if spinePathInput[-1] == "\\":
-            spinePathInput = spinePathInput[:-1]
-        
-        settingFile = open("./resources/settingForWindows.txt", 'w')
-        spinePathInput = f"\"{spinePathInput}\\Spine.exe\" -u"
-        settingFile.write(spinePathInput)
-
-        settingFile.close()
-
-        window.destroy()
-
-        return
-
-    window = tk.Tk()
-    window.title("Option")
-    optionComment1 = tk.Label(window, text = "spine의 설치 폴더를 입력해주세요. : ")
-    optionComment1.grid(row = 0, column = 0)
-        
-    optionInput = tk.Entry(window, justify = "right", width = 20)
-    optionInput.grid(row = 1, column = 0)
-
-    okButton = tk.Button(window, text = "    OK    ", command = optionOkClick)
-    okButton.grid(row = 2, column = 0)
-
-    window.mainloop()
 
 # 세팅 파일이 있는지 확인하기
 file = "./resources/settingForWindows.txt"
 if os.path.exists(file):
     pass
 else:
-    print("개인 설정을 시작합니다.")
-    OptionSetting()
+    resources.optionSetting.OptionSetting()
 
+window = tkinter.Tk()
+window.title("Spine Launcher")
+window.geometry("600x400+200+100")
 
+labelText = """
+------------------------------------------------------------
+실행할 스파인 버전의 버튼을 눌러주세요.
+
+스파인이 설치되어 있는 경로를 수정하고 싶은 경우에는
+'Spine path setting' 버튼을 눌러주세요.
+------------------------------------------------------------"""
+
+label = tkinter.Label(window, text = labelText, pady = 3)
+label.pack(side = "top")
+
+btnVer1 = tkinter.Button(window, text = "spine 3.6.53", width = 25, height = 3)
+btnVer1.pack(side = "top", pady = 10)
+
+btnVer2 = tkinter.Button(window, text = "spine 3.7.94", width = 25, height = 3)
+btnVer2.pack(side = "top", pady = 10)
+
+btnOption = tkinter.Button(window, text = "Spine path setting", width = 20, height = 3)
+btnOption.pack(side="bottom", padx = 100, pady = 20, anchor = "e")
+
+window.mainloop()
 
 
 
