@@ -4,18 +4,12 @@ import sys
 import platform
 import tkinter
 
-import resources.optionSetting
+import resources.optionSetting as optionSetting
 
 # 현재 운영체제 알아내기
 thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
 
-# 세팅 파일이 있는지 확인하기
-file = "./resources/settingForWindows.txt"
-if os.path.exists(file):
-    pass
-else:
-    resources.optionSetting.OptionSetting()
-
+# 메인 GUI 시작
 window = tkinter.Tk()
 window.title("Spine Launcher")
 window.geometry("600x400+200+100")
@@ -31,24 +25,19 @@ labelText = """
 label = tkinter.Label(window, text = labelText, pady = 3)
 label.pack(side = "top")
 
-btnVer1 = tkinter.Button(window, text = "spine 3.6.53", width = 25, height = 3)
+btnVer1 = tkinter.Button(window, text = "spine 3.6.53", width = 30, height = 4)
 btnVer1.pack(side = "top", pady = 10)
 
-btnVer2 = tkinter.Button(window, text = "spine 3.7.94", width = 25, height = 3)
+btnVer2 = tkinter.Button(window, text = "spine 3.7.94", width = 30, height = 4)
 btnVer2.pack(side = "top", pady = 10)
 
-btnOption = tkinter.Button(window, text = "Spine path setting", width = 20, height = 3)
-btnOption.pack(side="bottom", padx = 100, pady = 20, anchor = "e")
+btnOption = tkinter.Button(window, text = "Spine path setting", width = 25, height = 3, command = optionSetting.OptionSetting)
+btnOption.pack(side="top", pady = 30)
 
 window.mainloop()
 
 
 
-
-
-# # 버전 선택하기
-# spineVersionInput = input("spine의 버전을 입력해주세요. : ")
-# print(spineVersionInput)
 
 # # 이때까지 모인 정보로 spine 실행시키기
 # start = "/Applications/Spine/Spine.app/Contents/MacOS/Spine -u 3.6.53"
