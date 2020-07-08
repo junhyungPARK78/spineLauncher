@@ -31,7 +31,7 @@ buttonVer1.pack(side = "top", pady = 10)
 buttonVer2 = tkinter.Button(window, text = "spine 3.7.94", width = 30, height = 4)
 buttonVer2.pack(side = "top", pady = 10)
 
-buttonDefaultOption = tkinter.Button(window, text = "Spine path setting", width = 25, height = 3, command = optionSetting.OptionSetting)
+buttonDefaultOption = tkinter.Button(window, text = "Spine path setting", width = 25, height = 3, command = optionSetting.Main)
 buttonDefaultOption.pack(side="top", pady = 30)
 
 window.mainloop()

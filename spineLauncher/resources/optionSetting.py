@@ -6,9 +6,9 @@ import tkinter as tk
 thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
 
 # [함수] 세팅 파일용 GUI
-def OptionSetting():
+def Main():
     # [함수] 세팅 파일 만들기
-    def optionOkClick():
+    def OptionOkClick():
         # 세이브 내용이 담겨있는 Dictionary
         spinePathDictionary = {}
 
@@ -49,6 +49,15 @@ def OptionSetting():
         window.destroy()
 
         return
+    
+    # 설정을 디폴트로 돌리기
+    def SetDefault():
+        defaultSettingDictionary = {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathMac':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
+        with open("./resources/settingSave.bin", 'wb') as f:
+            pickle.dump(defaultSettingDictionary, f)
+            print(defaultSettingDictionary)
+        
+        window.destroy()
 
     window = tk.Tk()
     window.title("Option")
@@ -72,7 +81,7 @@ def OptionSetting():
     entryOptionInput = tk.Entry(window, justify = "right", width = 40)
     entryOptionInput.pack()
 
-    buttonOk = tk.Button(window, text = "입력 완료", command = optionOkClick, width = 30, height = 3)
+    buttonOk = tk.Button(window, text = "입력 완료", command = OptionOkClick, width = 30, height = 3)
     buttonOk.pack()
 
     labelOptionComment2 = tk.Label(window, text = textLine)
@@ -81,7 +90,7 @@ def OptionSetting():
     labelOptionComment3 = tk.Label(window, text = textDefault)
     labelOptionComment3.pack()
 
-    buttonDefaultOption = tk.Button(window, text = "Default", width = 20, height = 2)
+    buttonDefaultOption = tk.Button(window, text = "Default", command = SetDefault, width = 20, height = 2)
     buttonDefaultOption.pack()
 
     labelOptionComment4 = tk.Label(window, text = textLine)
@@ -90,4 +99,4 @@ def OptionSetting():
     window.mainloop()
 
 if __name__ == '__main__':
-    OptionSetting()
+    Main()
