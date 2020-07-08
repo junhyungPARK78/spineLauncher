@@ -12,7 +12,7 @@ thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 �
 # 메인 GUI 시작
 window = tkinter.Tk()
 window.title("Spine Launcher")
-window.geometry("600x400+200+100")
+window.geometry("640x420+200+100")
 
 labelText = """
 ------------------------------------------------------------
@@ -22,17 +22,17 @@ labelText = """
 'Spine path setting' 버튼을 눌러주세요.
 ------------------------------------------------------------"""
 
-label = tkinter.Label(window, text = labelText, pady = 3)
-label.pack(side = "top")
+labelHeader = tkinter.Label(window, text = labelText, pady = 3)
+labelHeader.pack(side = "top")
 
-btnVer1 = tkinter.Button(window, text = "spine 3.6.53", width = 30, height = 4)
-btnVer1.pack(side = "top", pady = 10)
+buttonVer1 = tkinter.Button(window, text = "spine 3.6.53", width = 30, height = 4)
+buttonVer1.pack(side = "top", pady = 10)
 
-btnVer2 = tkinter.Button(window, text = "spine 3.7.94", width = 30, height = 4)
-btnVer2.pack(side = "top", pady = 10)
+buttonVer2 = tkinter.Button(window, text = "spine 3.7.94", width = 30, height = 4)
+buttonVer2.pack(side = "top", pady = 10)
 
-btnOption = tkinter.Button(window, text = "Spine path setting", width = 25, height = 3, command = optionSetting.OptionSetting)
-btnOption.pack(side="top", pady = 30)
+buttonDefaultOption = tkinter.Button(window, text = "Spine path setting", width = 25, height = 3, command = optionSetting.Main)
+buttonDefaultOption.pack(side="top", pady = 30)
 
 window.mainloop()
 
@@ -44,8 +44,3 @@ window.mainloop()
 # # “C:\Program Files (x86)\Spine\Spine.exe” -u 3.6.53
 # # /Applications/Spine/Spine.app/Contents/MacOS/Spine -u 3.6.53
 # os.system(start)
-
-# UX 만들기
-# # 옵션 GUI 업그레이드하기
-# # 본체 GUI 업그레이드하기
-# # 윈도우즈에서 spine이 실행이 되지 않을 때는 「resources/settingForWindows.txt」를 삭제하고 다시 실행시키십시오.
