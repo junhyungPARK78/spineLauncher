@@ -18,7 +18,7 @@ def OptionSetting():
                 spinePathDictionary = pickle.load(f)
 
                 # path 옵션 세이브 문구 만들기
-                spinePathInput = optionInput.get()
+                spinePathInput = entryOptionInput.get()
                 if spinePathInput[-1] == "\\":
                     spinePathInput = spinePathInput[:-1]
                 spinePathInput = f"\"{spinePathInput}\\Spine.exe\" -u"
@@ -35,7 +35,7 @@ def OptionSetting():
                 spinePathDictionary = pickle.load(f)
 
                 # path 옵션 세이브 문구 만들기
-                spinePathInput = optionInput.get()
+                spinePathInput = entryOptionInput.get()
                 if spinePathInput[-1] == "\\":
                     spinePathInput = spinePathInput[:-1]
                 spinePathInput = f"{spinePathInput} -u"
@@ -52,14 +52,42 @@ def OptionSetting():
 
     window = tk.Tk()
     window.title("Option")
-    window.geometry("420x300+200+100")
-    optionComment1 = tk.Label(window, text = "spine의 설치 폴더를 입력해주세요. : ")
-    optionComment1.grid(row = 0, column = 0)
-        
-    optionInput = tk.Entry(window, justify = "right", width = 20)
-    optionInput.grid(row = 1, column = 0)
+    window.geometry("500x420+300+200")
 
-    okButton = tk.Button(window, text = "    OK    ", command = optionOkClick)
-    okButton.grid(row = 2, column = 0)
+    textHead = """
+    ----------------------------------------------------------------------
+    옵션을 수정합니다.
+    ----------------------------------------------------------------------
+
+    ------------------------------------------------------------
+    spine의 설치 폴더를 입력해주세요. : """
+    textLine = "------------------------------------------------------------"
+    textDefault = """
+    ------------------------------------------------------------
+    옵션을 디폴트 치로 되돌립니다."""
+
+    labelOptionComment1 = tk.Label(window, text = textHead)
+    labelOptionComment1.pack()
+        
+    entryOptionInput = tk.Entry(window, justify = "right", width = 40)
+    entryOptionInput.pack()
+
+    buttonOk = tk.Button(window, text = "입력 완료", command = optionOkClick, width = 30, height = 3)
+    buttonOk.pack()
+
+    labelOptionComment2 = tk.Label(window, text = textLine)
+    labelOptionComment2.pack()
+
+    labelOptionComment3 = tk.Label(window, text = textDefault)
+    labelOptionComment3.pack()
+
+    buttonDefaultOption = tk.Button(window, text = "Default", width = 20, height = 2)
+    buttonDefaultOption.pack()
+
+    labelOptionComment4 = tk.Label(window, text = textLine)
+    labelOptionComment4.pack()
 
     window.mainloop()
+
+if __name__ == '__main__':
+    OptionSetting()
