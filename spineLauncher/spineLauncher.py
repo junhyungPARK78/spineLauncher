@@ -44,8 +44,3 @@ window.mainloop()
 # # “C:\Program Files (x86)\Spine\Spine.exe” -u 3.6.53
 # # /Applications/Spine/Spine.app/Contents/MacOS/Spine -u 3.6.53
 # os.system(start)
-
-# UX 만들기
-# # 옵션 GUI 업그레이드하기
-# # 본체 GUI 업그레이드하기
-# # 윈도우즈에서 spine이 실행이 되지 않을 때는 「resources/settingForWindows.txt」를 삭제하고 다시 실행시키십시오.
