@@ -1,21 +1,50 @@
-# import os
-# import os.path
-# import sys
-# import platform
+import platform
+import pickle
 import tkinter as tk
+
+# 현재 운영체제 알아내기
+thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
 
 # [함수] 세팅 파일용 GUI
 def OptionSetting():
     # [함수] 세팅 파일 만들기
     def optionOkClick():
-        spinePathInput = optionInput.get()
-        if spinePathInput[-1] == "\\":
-            spinePathInput = spinePathInput[:-1]
+        # 세이브 내용이 담겨있는 Dictionary
+        spinePathDictionary = {}
 
-        spinePathInput = f"\"{spinePathInput}\\Spine.exe\" -u"
+        # 윈도우 용 세이브 파일 만들기
+        if thisPlatform == "Windows":
+            with open("./resources/settingSave.bin", 'rb') as f:
+                spinePathDictionary = pickle.load(f)
 
-        with open("./resources/settingForWindows.txt", 'w') as f:
-            f.write(spinePathInput)
+                # path 옵션 세이브 문구 만들기
+                spinePathInput = optionInput.get()
+                if spinePathInput[-1] == "\\":
+                    spinePathInput = spinePathInput[:-1]
+                spinePathInput = f"\"{spinePathInput}\\Spine.exe\" -u"
+                spinePathDictionary["spinePathWindows"] = spinePathInput
+
+                # 세이브 파일 작성하기
+                with open("./resources/settingSave.bin", 'wb') as f:
+                    pickle.dump(spinePathDictionary, f)
+                    print(spinePathDictionary)
+
+        # 맥 용 세이브 파일 만들기
+        if thisPlatform == "Darwin":
+            with open("./resources/settingSave.bin", 'rb') as f:
+                spinePathDictionary = pickle.load(f)
+
+                # path 옵션 세이브 문구 만들기
+                spinePathInput = optionInput.get()
+                if spinePathInput[-1] == "\\":
+                    spinePathInput = spinePathInput[:-1]
+                spinePathInput = f"{spinePathInput} -u"
+                spinePathDictionary["spinePathMac"] = spinePathInput
+
+                # 세이브 파일 작성하기
+                with open("./resources/settingSave.bin", 'wb') as f:
+                    pickle.dump(spinePathDictionary, f)
+                    print(spinePathDictionary)
 
         window.destroy()
 
