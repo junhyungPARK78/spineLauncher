@@ -39,7 +39,7 @@ def Main(): # [함수] 세팅 파일용 GUI
                 if spinePathInput[-1] == "\\":
                     spinePathInput = spinePathInput[:-1]
                 spinePathInput = f"{spinePathInput} -u"
-                spinePathDictionary["spinePathMac"] = spinePathInput
+                spinePathDictionary["spinePathDarwin"] = spinePathInput
 
                 # 세이브 파일 작성하기
                 with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
@@ -53,7 +53,7 @@ def Main(): # [함수] 세팅 파일용 GUI
     # 설정을 디폴트로 돌리기
     def SetDefault():
         defaultSettingDictionary = \
-            {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathMac':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
+            {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathDarwin':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
         with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
             pickle.dump(defaultSettingDictionary, f)
             print(defaultSettingDictionary)
