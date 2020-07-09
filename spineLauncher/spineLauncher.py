@@ -14,15 +14,16 @@ window = tkinter.Tk()
 window.title("Spine Launcher")
 window.geometry("640x420+200+100")
 
-labelText = """
+textLabel = """
 ------------------------------------------------------------
 실행할 스파인 버전의 버튼을 눌러주세요.
 
 스파인이 설치되어 있는 경로를 수정하고 싶은 경우에는
 'Spine path setting' 버튼을 눌러주세요.
 ------------------------------------------------------------"""
+textLine = "------------------------------------------------------------"
 
-labelHeader = tkinter.Label(window, text = labelText, pady = 3)
+labelHeader = tkinter.Label(window, text = textLabel, pady = 3)
 labelHeader.pack(side = "top")
 
 buttonVer1 = tkinter.Button(window, text = "spine 3.6.53", width = 30, height = 4)
@@ -30,6 +31,9 @@ buttonVer1.pack(side = "top", pady = 10)
 
 buttonVer2 = tkinter.Button(window, text = "spine 3.7.94", width = 30, height = 4)
 buttonVer2.pack(side = "top", pady = 10)
+
+labelLine1 = tkinter.Label(window, text = textLine)
+labelLine1.pack(side = "top")
 
 buttonDefaultOption = tkinter.Button(window, text = "Spine path setting", width = 25, height = 3, command = optionSetting.Main)
 buttonDefaultOption.pack(side="top", pady = 30)
