@@ -1,2 +1,6 @@
-spineLauncher/resources/__pycache__/__init__.cpython-38.pyc
-spineLauncher/resources/__pycache__/optionSetting.cpython-38.pyc
+spineLauncher/spineLauncher.spec
+
+spineLauncher/resources/__pycache__/
+spineLauncher/__pycache__/
+spineLauncher/build/
+spineLauncher/dist/
