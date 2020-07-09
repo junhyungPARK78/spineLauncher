@@ -17,7 +17,7 @@ settingSaveFile = "settingSave.bin" # 세팅 세이브 파일
 def StartSpine(spineVer):
     with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
         loadData = pickle.load(f)
-    keyOfLoadData = loadData[f"spinePath{thisPlatform}"]
+    keyOfLoadData = loadData["spinePath" + thisPlatform]
     runningText = keyOfLoadData + " " + spineVer
     print(str(runningText))
     os.system(str(runningText))
