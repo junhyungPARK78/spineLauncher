@@ -1,3 +1,4 @@
+import os
 import platform
 import pickle
 import tkinter as tk
@@ -5,16 +6,15 @@ import tkinter as tk
 # 현재 운영체제 알아내기
 thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
 
-# [함수] 세팅 파일용 GUI
-def Main():
-    # [함수] 세팅 파일 만들기
-    def OptionOkClick():
-        # 세이브 내용이 담겨있는 Dictionary
-        spinePathDictionary = {}
+def Main(): # [함수] 세팅 파일용 GUI
+    resourcesFolder = os.path.join(".", "resources") # resources 폴더 경로
+    settingSaveFile = "settingSave.bin" # 세팅 세이브 파일
+
+    def OptionOkClick(): # [함수] 세팅 파일 만들기
 
         # 윈도우 용 세이브 파일 만들기
         if thisPlatform == "Windows":
-            with open("./resources/settingSave.bin", 'rb') as f:
+            with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
                 spinePathDictionary = pickle.load(f)
 
                 # path 옵션 세이브 문구 만들기
@@ -25,13 +25,13 @@ def Main():
                 spinePathDictionary["spinePathWindows"] = spinePathInput
 
                 # 세이브 파일 작성하기
-                with open("./resources/settingSave.bin", 'wb') as f:
+                with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
                     pickle.dump(spinePathDictionary, f)
                     print(spinePathDictionary)
 
         # 맥 용 세이브 파일 만들기
         if thisPlatform == "Darwin":
-            with open("./resources/settingSave.bin", 'rb') as f:
+            with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
                 spinePathDictionary = pickle.load(f)
 
                 # path 옵션 세이브 문구 만들기
@@ -42,7 +42,7 @@ def Main():
                 spinePathDictionary["spinePathMac"] = spinePathInput
 
                 # 세이브 파일 작성하기
-                with open("./resources/settingSave.bin", 'wb') as f:
+                with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
                     pickle.dump(spinePathDictionary, f)
                     print(spinePathDictionary)
 
@@ -53,7 +53,7 @@ def Main():
     # 설정을 디폴트로 돌리기
     def SetDefault():
         defaultSettingDictionary = {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathMac':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
-        with open("./resources/settingSave.bin", 'wb') as f:
+        with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
             pickle.dump(defaultSettingDictionary, f)
             print(defaultSettingDictionary)
         
