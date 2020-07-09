@@ -52,7 +52,8 @@ def Main(): # [함수] 세팅 파일용 GUI
     
     # 설정을 디폴트로 돌리기
     def SetDefault():
-        defaultSettingDictionary = {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathMac':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
+        defaultSettingDictionary = \
+            {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathMac':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
         with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
             pickle.dump(defaultSettingDictionary, f)
             print(defaultSettingDictionary)
@@ -70,30 +71,44 @@ def Main(): # [함수] 세팅 파일용 GUI
 
     ------------------------------------------------------------
     spine의 설치 폴더를 입력해주세요. : """
+    
     textLine = "------------------------------------------------------------"
+    
     textDefault = """
     ------------------------------------------------------------
     옵션을 디폴트 치로 되돌립니다."""
 
-    labelOptionComment1 = tk.Label(window, text = textHead)
+    labelOptionComment1 = tk.Label(window, \
+        text = textHead)
     labelOptionComment1.pack()
         
-    entryOptionInput = tk.Entry(window, justify = "right", width = 40)
+    entryOptionInput = tk.Entry(window, \
+        justify = "right", \
+        width = 40)
     entryOptionInput.pack()
 
-    buttonOk = tk.Button(window, text = "입력 완료", command = OptionOkClick, width = 30, height = 3)
+    buttonOk = tk.Button(window, \
+        text = "입력 완료", \
+        command = OptionOkClick, \
+        width = 30, height = 3)
     buttonOk.pack()
 
-    labelOptionComment2 = tk.Label(window, text = textLine)
+    labelOptionComment2 = tk.Label(window, \
+        text = textLine)
     labelOptionComment2.pack()
 
-    labelOptionComment3 = tk.Label(window, text = textDefault)
+    labelOptionComment3 = tk.Label(window, \
+        text = textDefault)
     labelOptionComment3.pack()
 
-    buttonDefaultOption = tk.Button(window, text = "Default", command = SetDefault, width = 20, height = 2)
+    buttonDefaultOption = tk.Button(window, \
+        text = "Default", \
+        command = SetDefault, \
+        width = 20, height = 2)
     buttonDefaultOption.pack()
 
-    labelOptionComment4 = tk.Label(window, text = textLine)
+    labelOptionComment4 = tk.Label(window, \
+        text = textLine)
     labelOptionComment4.pack()
 
     window.mainloop()
