@@ -21,7 +21,7 @@ def Main(): # [함수] 세팅 파일용 GUI
                 spinePathInput = entryOptionInput.get()
                 if spinePathInput[-1] == "\\":
                     spinePathInput = spinePathInput[:-1]
-                spinePathInput = "\\" + spinePathInput + "\\Spine.exe\" -u"
+                spinePathInput = "\"" + spinePathInput + "\\Spine.exe\" -u"
                 spinePathDictionary["spinePathWindows"] = spinePathInput
 
                 # 세이브 파일 작성하기
