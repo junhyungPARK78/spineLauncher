@@ -6,6 +6,7 @@ import pickle
 import tkinter
 
 import resources.optionSetting as optionSetting
+import resources.noFile as noFile
 
 # 현재 운영체제 알아내기
 thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
@@ -18,7 +19,22 @@ def StartSpine(spineVer):
     with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
         loadData = pickle.load(f)
     keyOfLoadData = loadData["spinePath" + thisPlatform]
+    print(keyOfLoadData[:-3].replace("\"", ""))
     runningText = keyOfLoadData + " " + spineVer
+    
+    # 파일 존재 여부 확인
+    try:
+        with open(keyOfLoadData[:-3].replace("\"", ""), 'r'):
+            pass
+    except FileNotFoundError as e:
+        print("파일 없소")
+        print(e)
+        noFile.Main()
+    except IOError as e:
+        print("파일 없소")
+        print(e)
+        noFile.Main()
+    
     print(str(runningText))
     os.system(str(runningText))
 
