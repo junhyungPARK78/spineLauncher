@@ -4,3 +4,4 @@ spineLauncher/resources/__pycache__/
 spineLauncher/__pycache__/
 spineLauncher/build/
 spineLauncher/dist/
+TEST.py
