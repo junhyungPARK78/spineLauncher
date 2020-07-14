@@ -7,7 +7,7 @@ import tkinter as tk
 thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
 
 def Main(): # [함수] 세팅 파일용 GUI
-    resourcesFolder = os.path.join(".", "resources") # resources 폴더 경로
+    resourcesFolder = os.path.abspath("resources") # resources 폴더 경로
     settingSaveFile = "settingSave.bin" # 세팅 세이브 파일
 
     def OptionOkClick(): # [함수] 세팅 파일 만들기
@@ -19,8 +19,13 @@ def Main(): # [함수] 세팅 파일용 GUI
 
                 # path 옵션 세이브 문구 만들기
                 spinePathInput = entryOptionInput.get()
-                if spinePathInput[-1] == "\\":
+                # print(spinePathInput)
+                if spinePathInput[0] == "\"":
+                    spinePathInput = spinePathInput[1:]
+                if spinePathInput[-1] == "\"":
                     spinePathInput = spinePathInput[:-1]
+                # print(spinePathInput)
+                spinePathInput = os.path.dirname(spinePathInput)
                 spinePathInput = "\"" + spinePathInput + "\\Spine.exe\" -u"
                 spinePathDictionary["spinePathWindows"] = spinePathInput
 
