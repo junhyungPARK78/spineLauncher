@@ -19,13 +19,12 @@ def Main(): # 【関数】設定ファイル用のGUI
 
                 # path オプションのセーブの文言を作る
                 spinePathInput = entryOptionInput.get()
-                # print(spinePathInput)
                 if spinePathInput[0] == "\"":
                     spinePathInput = spinePathInput[1:]
                 if spinePathInput[-1] == "\"":
                     spinePathInput = spinePathInput[:-1]
-                # print(spinePathInput)
-                spinePathInput = os.path.dirname(spinePathInput)
+                if os.path.basename(spinePathInput) == "Spine.exe":
+                    spinePathInput = os.path.dirname(spinePathInput)
                 spinePathInput = "\"" + spinePathInput + "\\Spine.exe\" -u"
                 spinePathDictionary["spinePathWindows"] = spinePathInput
 
