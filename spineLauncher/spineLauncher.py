@@ -8,13 +8,13 @@ import tkinter
 import resources.optionSetting as optionSetting
 import resources.noFile as noFile
 
-# 현재 운영체제 알아내기
-thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
+# 現在のオペレーティングシステム調べる
+thisPlatform = platform.system() # 「Darwin」：Mac、「Windows」：windows。
 
-resourcesFolder = os.path.join(".", "resources") # resources 폴더 경로
-settingSaveFile = "settingSave.bin" # 세팅 세이브 파일
+resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
+settingSaveFile = "settingSave.bin" # 設定のセーブのファイル
 
-# 실행 함수
+# 実行の関数
 def StartSpine(spineVer):
     with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
         loadData = pickle.load(f)
@@ -22,33 +22,33 @@ def StartSpine(spineVer):
     print(keyOfLoadData[:-3].replace("\"", ""))
     runningText = keyOfLoadData + " " + spineVer
     
-    # 파일 존재 여부 확인
+    # ファイルの存在を確認
     try:
         with open(keyOfLoadData[:-3].replace("\"", ""), 'r'):
             pass
     except FileNotFoundError as e:
-        print("파일 없소")
+        print("ファイルがありません。")
         print(e)
         noFile.Main()
     except IOError as e:
-        print("파일 없소")
+        print("ファイルがありません。")
         print(e)
         noFile.Main()
     
     print(str(runningText))
     os.system(str(runningText))
 
-# 메인 GUI 시작
+# メインのGUIの始まり
 window = tkinter.Tk()
 window.title("Spine Launcher")
 window.geometry("640x420+200+100")
 
 textLabel = """
 ------------------------------------------------------------
-실행할 스파인 버전의 버튼을 눌러주세요.
+実行するspineのバージョンのボタンをクリックしてください。
 
-스파인이 설치되어 있는 경로를 수정하고 싶은 경우에는
-'Spine path setting' 버튼을 눌러주세요.
+spineが設置されている経路を修正したい場合には
+'Spine path setting'のボタンをクリックしてください。
 ------------------------------------------------------------"""
 textLine = "------------------------------------------------------------"
 ver1 = "3.6.53"

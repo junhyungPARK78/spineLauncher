@@ -3,21 +3,21 @@ import platform
 import pickle
 import tkinter as tk
 
-# 현재 운영체제 알아내기
-thisPlatform = platform.system() # 「Darwin」은 맥이다.「Windows」는 윈도우즈.
+# 現在のオペレーティングシステム調べる
+thisPlatform = platform.system() # 「Darwin」：Mac、「Windows」：windows。
 
-def Main(): # [함수] 세팅 파일용 GUI
-    resourcesFolder = os.path.abspath("resources") # resources 폴더 경로
-    settingSaveFile = "settingSave.bin" # 세팅 세이브 파일
+def Main(): # 【関数】設定ファイル用のGUI
+    resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
+    settingSaveFile = "settingSave.bin" # 設定のセーブのファイル
 
-    def OptionOkClick(): # [함수] 세팅 파일 만들기
+    def OptionOkClick(): # 【関数】設定のファイルを作る
 
-        # 윈도우 용 세이브 파일 만들기
+        # セーブファイルを作る（Windows）
         if thisPlatform == "Windows":
             with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
                 spinePathDictionary = pickle.load(f)
 
-                # path 옵션 세이브 문구 만들기
+                # path オプションのセーブの文言を作る
                 spinePathInput = entryOptionInput.get()
                 # print(spinePathInput)
                 if spinePathInput[0] == "\"":
@@ -29,24 +29,24 @@ def Main(): # [함수] 세팅 파일용 GUI
                 spinePathInput = "\"" + spinePathInput + "\\Spine.exe\" -u"
                 spinePathDictionary["spinePathWindows"] = spinePathInput
 
-                # 세이브 파일 작성하기
+                # セーブファイルを作る
                 with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
                     pickle.dump(spinePathDictionary, f)
                     print(spinePathDictionary)
 
-        # 맥 용 세이브 파일 만들기
+        # セーブファイルを作る（Mac）
         if thisPlatform == "Darwin":
             with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
                 spinePathDictionary = pickle.load(f)
 
-                # path 옵션 세이브 문구 만들기
+                # path オプションのセーブの文言を作る
                 spinePathInput = entryOptionInput.get()
                 if spinePathInput[-1] == "\\":
                     spinePathInput = spinePathInput[:-1]
                 spinePathInput = spinePathInput + " -u"
                 spinePathDictionary["spinePathDarwin"] = spinePathInput
 
-                # 세이브 파일 작성하기
+                # セーブファイルを作る
                 with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
                     pickle.dump(spinePathDictionary, f)
                     print(spinePathDictionary)
@@ -55,7 +55,7 @@ def Main(): # [함수] 세팅 파일용 GUI
 
         return
     
-    # 설정을 디폴트로 돌리기
+    # 設定をデフォルトに戻す
     def SetDefault():
         defaultSettingDictionary = \
             {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathDarwin':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
@@ -71,17 +71,17 @@ def Main(): # [함수] 세팅 파일용 GUI
 
     textHead = """
     ----------------------------------------------------------------------
-    옵션을 수정합니다.
+    オプションを修正します。
     ----------------------------------------------------------------------
 
     ------------------------------------------------------------
-    spine의 설치 폴더를 입력해주세요. : """
+    spineの設置のフォルダーをお入力してください。："""
     
     textLine = "------------------------------------------------------------"
     
     textDefault = """
     ------------------------------------------------------------
-    옵션을 디폴트 치로 되돌립니다."""
+    オプションをデフォルトに戻します。"""
 
     labelOptionComment1 = tk.Label(window, \
         text = textHead)
@@ -93,7 +93,7 @@ def Main(): # [함수] 세팅 파일용 GUI
     entryOptionInput.pack()
 
     buttonOk = tk.Button(window, \
-        text = "입력 완료", \
+        text = "入力完了", \
         command = OptionOkClick, \
         width = 30, height = 3)
     buttonOk.pack()
@@ -107,7 +107,7 @@ def Main(): # [함수] 세팅 파일용 GUI
     labelOptionComment3.pack()
 
     buttonDefaultOption = tk.Button(window, \
-        text = "Default", \
+        text = "デフォルト", \
         command = SetDefault, \
         width = 20, height = 2)
     buttonDefaultOption.pack()
