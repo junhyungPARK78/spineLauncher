@@ -1,28 +1,12 @@
 import os
+import sys
 import platform
 import pickle
 import pandas
 import tkinter as tk
 
-# 現在のオペレーティングシステム調べる
-thisPlatform = platform.system() # 「Darwin」：Mac、「Windows」：windows。
-
-resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
-settingSaveFile = "settingSave.bin" # 設定のセーブのファイル
-multiLanguageCsvFile = "multiLanguageCsvFile.csv" # 言語別のデータが入っているcsvファイル
-
-csvData = pandas.read_csv(os.path.join(resourcesFolder, multiLanguageCsvFile), header = None)
-languageData = {}
-selectLanguage = ''
-
-with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
-    loadData = pickle.load(f)
-    selectLanguage = loadData['language']
-
-for i in range(len(csvData)):
-    languageData[csvData[0][i]] = csvData[int(selectLanguage)][i]
-
-print(languageData)
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+import spineLauncher
 
 def Main(): # 【関数】設定ファイル用のGUI
     resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
@@ -31,7 +15,7 @@ def Main(): # 【関数】設定ファイル用のGUI
     def OptionOkClick(): # 【関数】設定のファイルを作る
 
         # セーブファイルを作る（Windows）
-        if thisPlatform == "Windows":
+        if spineLauncher.thisPlatform == "Windows":
             with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
                 spinePathDictionary = pickle.load(f)
 
@@ -52,7 +36,7 @@ def Main(): # 【関数】設定ファイル用のGUI
                     print(spinePathDictionary)
 
         # セーブファイルを作る（Mac）
-        if thisPlatform == "Darwin":
+        if spineLauncher.thisPlatform == "Darwin":
             with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
                 spinePathDictionary = pickle.load(f)
 
@@ -92,11 +76,11 @@ def Main(): # 【関数】設定ファイル用のGUI
     window.title("Option")
     window.geometry("500x420+300+200")
 
-    textHead = languageData['optionSetting_textHead']
+    textHead = spineLauncher.languageData['optionSetting_textHead']
     
     textLine = "------------------------------------------------------------"
     
-    textDefault = languageData['optionSetting_textDefault']
+    textDefault = spineLauncher.languageData['optionSetting_textDefault']
 
     labelOptionComment1 = tk.Label(window, \
         text = textHead)
