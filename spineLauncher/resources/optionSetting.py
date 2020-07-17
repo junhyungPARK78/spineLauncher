@@ -56,8 +56,14 @@ def Main(): # 【関数】設定ファイル用のGUI
     
     # 設定をデフォルトに戻す
     def SetDefault():
-        defaultSettingDictionary = \
-            {'spinePathWindows':'“C:\\Program Files (x86)\\Spine\\Spine.exe” -u', 'spinePathDarwin':'/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'}
+        defaultSettingDictionary = {}
+
+        with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
+            loadData = pickle.load(f)
+            loadData['spinePathWindows'] = '“C:\\Program Files (x86)\\Spine\\Spine.exe” -u'
+            loadData['spinePathDarwin'] = '/Applications/Spine/Spine.app/Contents/MacOS/Spine -u'
+            defaultSettingDictionary = loadData
+
         with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
             pickle.dump(defaultSettingDictionary, f)
             print(defaultSettingDictionary)
@@ -92,7 +98,7 @@ def Main(): # 【関数】設定ファイル用のGUI
     entryOptionInput.pack()
 
     buttonOk = tk.Button(window, \
-        text = "入力完了", \
+        text = "OK", \
         command = OptionOkClick, \
         width = 30, height = 3)
     buttonOk.pack()
@@ -106,7 +112,7 @@ def Main(): # 【関数】設定ファイル用のGUI
     labelOptionComment3.pack()
 
     buttonDefaultOption = tk.Button(window, \
-        text = "デフォルト", \
+        text = "Default", \
         command = SetDefault, \
         width = 20, height = 2)
     buttonDefaultOption.pack()
