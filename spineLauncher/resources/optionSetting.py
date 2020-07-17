@@ -1,10 +1,28 @@
 import os
 import platform
 import pickle
+import pandas
 import tkinter as tk
 
 # 現在のオペレーティングシステム調べる
 thisPlatform = platform.system() # 「Darwin」：Mac、「Windows」：windows。
+
+resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
+settingSaveFile = "settingSave.bin" # 設定のセーブのファイル
+multiLanguageCsvFile = "multiLanguageCsvFile.csv" # 言語別のデータが入っているcsvファイル
+
+csvData = pandas.read_csv(os.path.join(resourcesFolder, multiLanguageCsvFile), header = None)
+languageData = {}
+selectLanguage = ''
+
+with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
+    loadData = pickle.load(f)
+    selectLanguage = loadData['language']
+
+for i in range(len(csvData)):
+    languageData[csvData[0][i]] = csvData[int(selectLanguage)][i]
+
+print(languageData)
 
 def Main(): # 【関数】設定ファイル用のGUI
     resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
@@ -74,19 +92,11 @@ def Main(): # 【関数】設定ファイル用のGUI
     window.title("Option")
     window.geometry("500x420+300+200")
 
-    textHead = """
-    ----------------------------------------------------------------------
-    オプションを修正します。
-    ----------------------------------------------------------------------
-
-    ------------------------------------------------------------
-    spineの設置のフォルダーをお入力してください。："""
+    textHead = languageData['optionSetting_textHead']
     
     textLine = "------------------------------------------------------------"
     
-    textDefault = """
-    ------------------------------------------------------------
-    オプションをデフォルトに戻します。"""
+    textDefault = languageData['optionSetting_textDefault']
 
     labelOptionComment1 = tk.Label(window, \
         text = textHead)
