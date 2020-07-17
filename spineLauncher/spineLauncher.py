@@ -4,6 +4,7 @@ import sys
 import platform
 import pickle
 import tkinter
+import pandas
 
 import resources.optionSetting as optionSetting
 import resources.noFile as noFile
@@ -13,6 +14,10 @@ thisPlatform = platform.system() # 「Darwin」：Mac、「Windows」：windows�
 
 resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
 settingSaveFile = "settingSave.bin" # 設定のセーブのファイル
+multiLanguageCsvFile = "multiLanguage.csv" # 言語別のデータが入っているcsvファイル
+
+csvData = pandas.read_csv(os.path.join(resourcesFolder, multiLanguageCsvFile), header = None)
+languageData = {}
 
 # 実行の関数
 def StartSpine(spineVer):
@@ -41,7 +46,7 @@ def StartSpine(spineVer):
 # メインのGUIの始まり
 window = tkinter.Tk()
 window.title("Spine Launcher")
-window.geometry("640x420+200+100")
+window.geometry("640x500+200+100")
 
 textLabel = """
 ------------------------------------------------------------
@@ -79,6 +84,12 @@ buttonDefaultOption = tkinter.Button(window, \
     text = "Spine path setting", \
     command = optionSetting.Main, \
     width = 25, height = 3)
-buttonDefaultOption.pack(side="top", pady = 30)
+buttonDefaultOption.pack(side="top", pady = 10)
+
+# buttonLanguageOption = tkinter.Button(window, \
+#     text = "Select Language", \
+#     # command = optionSetting.Main, \
+#     width = 25, height = 3)
+# buttonLanguageOption.pack(side="top")
 
 window.mainloop()
