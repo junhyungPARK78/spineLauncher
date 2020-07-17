@@ -4,8 +4,10 @@ import sys
 import platform
 import pickle
 import tkinter
+import pandas
 
 import resources.optionSetting as optionSetting
+import resources.multiLanguage as multiLanguage
 import resources.noFile as noFile
 
 # 現在のオペレーティングシステム調べる
@@ -13,6 +15,20 @@ thisPlatform = platform.system() # 「Darwin」：Mac、「Windows」：windows�
 
 resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
 settingSaveFile = "settingSave.bin" # 設定のセーブのファイル
+multiLanguageCsvFile = "multiLanguageCsvFile.csv" # 言語別のデータが入っているcsvファイル
+
+csvData = pandas.read_csv(os.path.join(resourcesFolder, multiLanguageCsvFile), header = None)
+languageData = {}
+selectLanguage = ''
+
+with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
+    loadData = pickle.load(f)
+    selectLanguage = loadData['language']
+
+for i in range(len(csvData)):
+    languageData[csvData[0][i]] = csvData[int(selectLanguage)][i]
+
+print(languageData)
 
 # 実行の関数
 def StartSpine(spineVer):
@@ -27,11 +43,11 @@ def StartSpine(spineVer):
         with open(keyOfLoadData[:-3].replace("\"", ""), 'r'):
             pass
     except FileNotFoundError as e:
-        print("ファイルがありません。")
+        print(languageData['text_noFile'])
         print(e)
         noFile.Main()
     except IOError as e:
-        print("ファイルがありません。")
+        print(languageData['text_noFile'])
         print(e)
         noFile.Main()
     
@@ -41,15 +57,9 @@ def StartSpine(spineVer):
 # メインのGUIの始まり
 window = tkinter.Tk()
 window.title("Spine Launcher")
-window.geometry("640x420+200+100")
+window.geometry("640x500+200+100")
 
-textLabel = """
-------------------------------------------------------------
-実行するspineのバージョンのボタンをクリックしてください。
-
-spineが設置されている経路を修正したい場合には
-'Spine path setting'のボタンをクリックしてください。
-------------------------------------------------------------"""
+textLabel = languageData['spineLauncher_textLabel']
 textLine = "------------------------------------------------------------"
 ver1 = "3.6.53"
 ver2 = "3.7.94"
@@ -79,6 +89,12 @@ buttonDefaultOption = tkinter.Button(window, \
     text = "Spine path setting", \
     command = optionSetting.Main, \
     width = 25, height = 3)
-buttonDefaultOption.pack(side="top", pady = 30)
+buttonDefaultOption.pack(side="top", pady = 10)
+
+buttonLanguageOption = tkinter.Button(window, \
+    text = "Select Language", \
+    command = multiLanguage.Main, \
+    width = 25, height = 3)
+buttonLanguageOption.pack(side="top")
 
 window.mainloop()
