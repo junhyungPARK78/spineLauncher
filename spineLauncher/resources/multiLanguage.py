@@ -9,18 +9,28 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import spineLauncher
 
 def Main(): # 【関数】設定ファイル用のGUI
-    resourcesFolder = os.path.abspath("resources") # resources フォルダーの経路
-    settingSaveFile = "settingSave.bin" # 設定のセーブのファイル
+    def SelectEnglish():
+        defaultSettingDictionary = {}
+
+        with open(os.path.join(spineLauncher.resourcesFolder, spineLauncher.settingSaveFile), 'rb') as f:
+            loadData = pickle.load(f)
+            loadData['language'] = '3'
+            defaultSettingDictionary = loadData
+
+        with open(os.path.join(spineLauncher.resourcesFolder, spineLauncher.settingSaveFile), 'wb') as f:
+            pickle.dump(defaultSettingDictionary, f)            
+        
+        window.destroy()
 
     def SelectJapanese():
         defaultSettingDictionary = {}
 
-        with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
+        with open(os.path.join(spineLauncher.resourcesFolder, spineLauncher.settingSaveFile), 'rb') as f:
             loadData = pickle.load(f)
             loadData['language'] = '1'
             defaultSettingDictionary = loadData
 
-        with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
+        with open(os.path.join(spineLauncher.resourcesFolder, spineLauncher.settingSaveFile), 'wb') as f:
             pickle.dump(defaultSettingDictionary, f)            
         
         window.destroy()
@@ -28,12 +38,12 @@ def Main(): # 【関数】設定ファイル用のGUI
     def SelectKorean():
         defaultSettingDictionary = {}
 
-        with open(os.path.join(resourcesFolder, settingSaveFile), 'rb') as f:
+        with open(os.path.join(spineLauncher.resourcesFolder, spineLauncher.settingSaveFile), 'rb') as f:
             loadData = pickle.load(f)
             loadData['language'] = '2'
             defaultSettingDictionary = loadData
 
-        with open(os.path.join(resourcesFolder, settingSaveFile), 'wb') as f:
+        with open(os.path.join(spineLauncher.resourcesFolder, spineLauncher.settingSaveFile), 'wb') as f:
             pickle.dump(defaultSettingDictionary, f)
         
         window.destroy()
@@ -48,6 +58,12 @@ def Main(): # 【関数】設定ファイル用のGUI
     labelOptionComment1 = tk.Label(window, \
         text = textLabel)
     labelOptionComment1.pack()
+
+    buttonSelectEnglish = tk.Button(window, \
+        text = "English", \
+        command = SelectEnglish, \
+        width = 20, height = 2, pady = 10)
+    buttonSelectEnglish.pack(pady = 10)
 
     buttonSelectJapanese = tk.Button(window, \
         text = "日本語", \
